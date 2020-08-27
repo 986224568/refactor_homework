@@ -28,3 +28,14 @@ rankTest('voyageRisk case 3. should return 7 when voyageRisk given voyage length
     const result = voyageRisk(voyage);
     t.is(result, 7);
 });
+
+rankTest('hasChina case 1. should return true when hasChina given history include china', t => {
+    const history = [
+        {
+            zone: 'china',
+            profit: -2,
+        }
+    ];
+    const result = hasChina(history);
+    t.is(result, true);
+});
