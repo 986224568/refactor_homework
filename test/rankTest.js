@@ -50,3 +50,17 @@ rankTest('hasChina case 2. should return true when hasChina given history no inc
     const result = hasChina(history);
     t.is(result, false);
 });
+
+rankTest('hasChina case 3. should return true when hasChina given history no include china', t => {
+    const history = [
+        {
+            zone: 'west-indies',
+            profit: 15,
+        }
+    ];
+    const result = hasChina(history);
+    t.is(result, false);
+});
+
+
+
