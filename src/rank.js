@@ -50,8 +50,7 @@ function voyageProfitFactor (voyage, history) {
     if (voyage.length > 18) {
       result -= 1;
     }
-  }
-  else {
+  } else {
     if (history.length > 8) {
       result += 1;
     }
@@ -66,12 +65,7 @@ function rating (voyage, history) {
   const vpf = voyageProfitFactor(voyage, history);
   const vr = voyageRisk(voyage);
   const chr = captainHistoryRisk(voyage, history);
-  if (vpf * 3 > (vr + chr * 2)) {
-    return 'A';
-  }
-  else {
-    return 'B';
-  }
+  return (vpf * 3 > (vr + chr * 2)) ? 'A' : 'B';
 }
 
 module.exports = {
