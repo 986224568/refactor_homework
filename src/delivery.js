@@ -1,13 +1,9 @@
 function deliveryDate (anOrder, isRush) {
   if (isRush) {
     let deliveryTime;
-    if ([
-      'MA',
-      'CT',
-    ].includes(anOrder.deliveryState)) {
+    if (isIncludes(anOrder, ['MA','CT'])) {
       deliveryTime = 1;
-    }
-    else if ([
+    } else if ([
       'NY',
       'NH',
     ].includes(anOrder.deliveryState)) {
@@ -42,3 +38,7 @@ function deliveryDate (anOrder, isRush) {
 module.exports = {
   deliveryDate,
 };
+
+function isIncludes(anOrder, value){
+  return value.includes(anOrder.deliveryState);
+}
