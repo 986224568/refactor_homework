@@ -25,21 +25,31 @@ function captainHistoryRisk (voyage, history) {
 
 function voyageProfitFactor (voyage, history) {
   let result = 2;
-  if (voyage.zone === 'china') {
+  if (voyage.zone === 'china' || voyage.zone === 'east-indies') {
     result += 1;
   }
-  if (voyage.zone === 'east-indies') {
-    result += 1;
-  }
-  if (voyage.zone === 'china' && hasChina(history)) {
-    result += 3;
-    result += history.length > 10 ? 1 : 0;
-    result += voyage.length > 12 ? 1 : 0;
-    result += voyage.length > 18 ? -1 : 0;
-  } else {
-    result += history.length > 8 ? 1 : 0;
-    result += voyage.length > 14 ? -1 : 0;
-  }
+
+  result += isRelateChina(voyage, history) ? caculateChinaProfit(history, voyage) : caculateNotChinaProfit(history, voyage);
+  return result;
+}
+
+function isRelateChina(voyage, history) {
+  return voyage.zone === 'china' && hasChina(history);
+}
+
+function caculateNotChinaProfit(history, voyage) {
+  let result = 0;
+  result += history.length > 8 ? 1 : 0;
+  result += voyage.length > 14 ? -1 : 0;
+  return result;
+}
+
+function caculateChinaProfit(history, voyage) {
+  let result = 0;
+  result += 3;
+  result += history.length > 10 ? 1 : 0;
+  result += voyage.length > 12 ? 1 : 0;
+  result += voyage.length > 18 ? -1 : 0;
   return result;
 }
 
@@ -54,29 +64,6 @@ module.exports = {
     voyageProfitFactor,
     rating,
 };
-
-const voyage = {
-  zone: 'west-indies',
-  length: 10,
-};
-const history = [
-  {
-    zone: 'east-indies',
-    profit: 5,
-  },{
-    zone: 'west-indies',
-    profit: 15,
-  },{
-    zone: 'china',
-    profit: -2,
-  },
-  {
-    zone: 'west-africa',
-    profit: 7,
-  },
-];
-const myRating = rating(voyage, history);
-console.log(`myRating: ${myRating}`);
 
 function caculateProfitAndRisk(voyage, history) {
   const { vpf, vr, chr } = caculate(voyage, history);
