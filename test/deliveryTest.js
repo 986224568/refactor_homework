@@ -68,3 +68,9 @@ test('test10 NH false', t=>{
     let number = deliveryDate(anOrder,false);
     t.is(5,number);
 });
+
+test('test11 TT false', t=>{
+    anOrder.deliveryState ='TT';
+    let number = deliveryDate(anOrder,false);
+    t.is(6,number);
+});
