@@ -40,5 +40,5 @@ function deliveryDate (anOrder, isRush) {
   }
 }
 module.exports = {
-  deliveryDate
+  deliveryDate,
 };

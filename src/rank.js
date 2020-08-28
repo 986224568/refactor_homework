@@ -44,10 +44,7 @@ function voyageProfitFactor (voyage, history) {
 }
 
 function rating (voyage, history) {
-  const vpf = voyageProfitFactor(voyage, history);
-  const vr = voyageRisk(voyage);
-  const chr = captainHistoryRisk(voyage, history);
-  return (vpf * 3 > (vr + chr * 2)) ? 'A' : 'B';
+  return caculateProfitAndRisk(voyage, history);
 }
 
 module.exports = {
@@ -80,3 +77,16 @@ const history = [
 ];
 const myRating = rating(voyage, history);
 console.log(`myRating: ${myRating}`);
+
+function caculateProfitAndRisk(voyage, history) {
+  const { vpf, vr, chr } = caculate(voyage, history);
+  return (vpf * 3 > (vr + chr * 2)) ? 'A' : 'B';
+}
+
+function caculate(voyage, history) {
+  const vpf = voyageProfitFactor(voyage, history);
+  const vr = voyageRisk(voyage);
+  const chr = captainHistoryRisk(voyage, history);
+  return { vpf, vr, chr };
+}
+
