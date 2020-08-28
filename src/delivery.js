@@ -1,43 +1,37 @@
 function deliveryDate (anOrder, isRush) {
-  if (isRush) {
-    let deliveryTime;
-    if (isIncludes(anOrder, ['MA','CT'])) {
-      deliveryTime = 1;
-    } else if ([
-      'NY',
-      'NH',
-    ].includes(anOrder.deliveryState)) {
-      deliveryTime = 2;
-    }
-    else {
-      deliveryTime = 3;
-    }
-    return anOrder.placedOn.plusDays(1 + deliveryTime);
-  }
-  else {
-    let deliveryTime;
-    if ([
-      'MA',
-      'CT',
-      'NY',
-    ].includes(anOrder.deliveryState)) {
-      deliveryTime = 2;
-    }
-    else if ([
-      'ME',
-      'NH',
-    ].includes(anOrder.deliveryState)) {
-      deliveryTime = 3;
-    }
-    else {
-      deliveryTime = 4;
-    }
-    return anOrder.placedOn.plusDays(2 + deliveryTime);
-  }
+
+  let number = isRush? getRushDeliveryTime(anOrder)+1:getDeliveryTime(anOrder)+2
+  return number;
 }
 module.exports = {
   deliveryDate,
 };
+
+function isIncludes(anOrder, value){
+  return value.includes(anOrder.deliveryState);
+}
+
+function getDeliveryTime(anOrder) {
+  
+  if (isIncludes(anOrder,['MA','CT','NY'])) {
+     return 2;
+  }
+
+  if (isIncludes(anOrder,['ME','NH'])) {
+    return 3;
+  }
+  return 4;
+}
+
+function getRushDeliveryTime(anOrder) {
+  if (isIncludes(anOrder,['MA','CT'])) {
+    return 1;
+  }
+ if (isIncludes(anOrder,['NY','NH'])) {
+    return 2;
+  }
+  return 3;
+}
 
 function isIncludes(anOrder, value){
   return value.includes(anOrder.deliveryState);
