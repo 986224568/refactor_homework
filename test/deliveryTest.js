@@ -15,3 +15,8 @@ test('test1 MA true', t=>{
     t.is(2,number);
 });
 
+test('test2 CT true', t=>{
+    anOrder.deliveryState ='CT';
+    let number = deliveryDate(anOrder,true);
+    t.is(2,number);
+});
