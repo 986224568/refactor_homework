@@ -38,3 +38,9 @@ test('test5 TT true', t=>{
     let number = deliveryDate(anOrder,true);
     t.is(4,number);
 });
+
+test('test6 CT false', t=>{
+    anOrder.deliveryState ='CT';
+    let number = deliveryDate(anOrder,false);
+    t.is(4,number);
+});
